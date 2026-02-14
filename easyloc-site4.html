@@ -1,0 +1,2684 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EASYLOC – Location d'électroménager pour étudiants à Marseille</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- 📧 EmailJS Script -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function(){
+            emailjs.init("m4IvqgSTTQ6weZy6P"); // ← Remplace par ta vraie clé publique
+        })();
+    </script>
+    
+    <style>
+        :root {
+            --navy: #1B2E4A;
+            --navy-dark: #0F1D30;
+            --navy-light: #2A4470;
+            --orange: #E8530E;
+            --orange-light: #FF6B2B;
+            --orange-glow: rgba(232, 83, 14, 0.3);
+            --cream: #FFF8F0;
+            --white: #FFFFFF;
+            --gray-50: #F9FAFB;
+            --gray-100: #F3F4F6;
+            --gray-200: #E5E7EB;
+            --gray-500: #6B7280;
+            --gray-700: #374151;
+            --green: #10B981;
+            --blue: #3498DB;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--gray-50);
+            color: var(--navy);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* ===== NAV ===== */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(27, 46, 74, 0.97);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .nav-inner {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 0 20px;
+            height: 65px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-logo {
+            font-size: 22px;
+            font-weight: 900;
+            color: white;
+            letter-spacing: -0.1px;
+            cursor: pointer;
+        }
+
+        .nav-logo span {
+            color: var(--orange);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 6px;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            padding: 8px 14px;
+            border-radius: 8px;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: white;
+            background: rgba(255,255,255,0.08);
+        }
+
+        .nav-cta {
+            background: linear-gradient(135deg, var(--orange), var(--orange-light));
+            color: white;
+            border: none;
+            padding: 10px 22px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 4px 15px var(--orange-glow);
+            transition: all 0.2s;
+            margin-left: 8px;
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px var(--orange-glow);
+        }
+
+        .nav-mobile-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 26px;
+            cursor: pointer;
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy) 60%, var(--navy-light) 100%);
+            padding: 140px 20px 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            border: 1px solid rgba(255,255,255,0.04);
+            top: -15%;
+            right: -10%;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: rgba(232,83,14,0.06);
+            bottom: -10%;
+            left: -5%;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(232,83,14,0.15);
+            color: var(--orange);
+            padding: 6px 18px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            margin-bottom: 24px;
+            animation: fadeInDown 0.6s ease;
+        }
+
+        .hero h1 {
+            font-size: clamp(32px, 5.5vw, 56px);
+            font-weight: 900;
+            color: white;
+            line-height: 1.08;
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+            animation: fadeInUp 0.6s ease;
+        }
+
+        .hero h1 .highlight {
+            color: var(--orange);
+        }
+
+        .hero .subtitle {
+            font-size: clamp(16px, 2vw, 19px);
+            color: rgba(255,255,255,0.65);
+            max-width: 560px;
+            margin: 0 auto 36px;
+            line-height: 1.65;
+            animation: fadeInUp 0.7s ease;
+        }
+
+        .hero .subtitle strong {
+            color: white;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 14px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 50px;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--orange), var(--orange-light));
+            color: white;
+            border: none;
+            padding: 16px 36px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 800;
+            cursor: pointer;
+            box-shadow: 0 8px 30px var(--orange-glow);
+            transition: all 0.2s;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px var(--orange-glow);
+        }
+
+        .btn-secondary {
+            background: rgba(255,255,255,0.08);
+            color: white;
+            border: 1px solid rgba(255,255,255,0.15);
+            padding: 16px 36px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+            transition: all 0.2s;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.12);
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            animation: fadeInUp 0.9s ease;
+        }
+
+        .stat-card {
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 16px;
+            padding: 24px 32px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            min-width: 150px;
+        }
+
+        .stat-card .number {
+            font-size: 32px;
+            font-weight: 900;
+            color: var(--orange);
+            display: block;
+        }
+
+        .stat-card .label {
+            font-size: 13px;
+            color: rgba(255,255,255,0.5);
+            font-weight: 600;
+            margin-top: 4px;
+        }
+
+        /* ===== SECTIONS ===== */
+        .section {
+            padding: 80px 20px;
+        }
+
+        .section-white {
+            background: white;
+        }
+
+        .section-cream {
+            background: var(--cream);
+        }
+
+        .section-navy {
+            background: linear-gradient(135deg, var(--navy-dark), var(--navy));
+        }
+
+        .section-orange {
+            background: linear-gradient(135deg, var(--orange), var(--orange-light));
+        }
+
+        .section-title {
+            font-size: clamp(28px, 4vw, 40px);
+            font-weight: 900;
+            color: var(--navy);
+            text-align: center;
+            margin-bottom: 12px;
+            letter-spacing: -0.5px;
+        }
+
+        .section-title.white {
+            color: white;
+        }
+
+        .section-badge {
+            display: inline-block;
+            background: rgba(232,83,14,0.1);
+            color: var(--orange);
+            padding: 5px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            text-align: center;
+            margin-bottom: 14px;
+        }
+
+        .section-subtitle {
+            font-size: 16px;
+            color: var(--gray-500);
+            text-align: center;
+            max-width: 580px;
+            margin: 0 auto 48px;
+            line-height: 1.6;
+        }
+
+        .section-subtitle.white {
+            color: rgba(255,255,255,0.6);
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        /* ===== CARDS ===== */
+        .card {
+            background: white;
+            border-radius: 16px;
+            padding: 36px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0,0,0,0.04);
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.1);
+        }
+
+        .card-icon {
+            font-size: 42px;
+            margin-bottom: 16px;
+        }
+
+        .card-title {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--navy);
+            margin-bottom: 8px;
+        }
+
+        .card-text {
+            font-size: 14px;
+            color: var(--gray-500);
+            line-height: 1.65;
+        }
+
+        /* ===== GRID LAYOUTS ===== */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        /* ===== PRODUCT CARDS ===== */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 20px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            cursor: pointer;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(232,83,14,0.12);
+            border-color: var(--orange);
+        }
+
+        .product-img {
+            height: 140px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 64px;
+            background: linear-gradient(135deg, var(--cream), var(--gray-100));
+            position: relative;
+        }
+
+        .product-img .stock-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--navy);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 10px;
+            font-weight: 700;
+        }
+
+        .product-body {
+            padding: 20px;
+        }
+
+        .product-name {
+            font-size: 17px;
+            font-weight: 800;
+            color: var(--navy);
+            margin-bottom: 4px;
+        }
+
+        .product-desc {
+            font-size: 13px;
+            color: var(--gray-500);
+            margin-bottom: 14px;
+            line-height: 1.5;
+        }
+
+        .product-price {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 14px;
+        }
+
+        .product-price .amount {
+            font-size: 26px;
+            font-weight: 900;
+            color: var(--orange);
+        }
+
+        .product-price .per {
+            font-size: 13px;
+            color: var(--gray-500);
+        }
+
+        .product-price .caution {
+            font-size: 12px;
+            color: var(--gray-500);
+            background: var(--gray-100);
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-weight: 600;
+        }
+
+        .product-btn {
+            width: 100%;
+            padding: 12px;
+            border-radius: 10px;
+            border: none;
+            background: linear-gradient(135deg, var(--orange), var(--orange-light));
+            color: white;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 4px 15px var(--orange-glow);
+            transition: all 0.2s;
+        }
+
+        .product-btn:hover {
+            transform: translateY(-1px);
+        }
+
+        .delivery-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: white;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--navy);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        /* ===== WHY SECTION / ADVANTAGES ===== */
+        .advantage-card {
+            background: white;
+            border-radius: 16px;
+            padding: 32px;
+            border: 2px solid var(--gray-200);
+            transition: all 0.3s ease;
+        }
+
+        .advantage-card:hover {
+            border-color: var(--orange);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(232,83,14,0.1);
+        }
+
+        .advantage-card .tag {
+            display: inline-block;
+            background: rgba(232,83,14,0.1);
+            color: var(--orange);
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 14px;
+        }
+
+        .advantage-card h3 {
+            font-size: 22px;
+            font-weight: 900;
+            color: var(--navy);
+            margin-bottom: 12px;
+        }
+
+        .advantage-card .comparison {
+            background: var(--cream);
+            border-radius: 10px;
+            padding: 16px 20px;
+            margin-bottom: 14px;
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--navy);
+        }
+
+        .advantage-card .comparison .vs {
+            color: var(--orange);
+            font-weight: 900;
+        }
+
+        .advantage-card ul {
+            list-style: none;
+        }
+
+        .advantage-card ul li {
+            padding: 6px 0;
+            font-size: 14px;
+            color: var(--gray-700);
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            line-height: 1.5;
+        }
+
+        .advantage-card ul li::before {
+            content: '✓';
+            color: var(--green);
+            font-weight: 900;
+            flex-shrink: 0;
+        }
+
+        /* ===== HOW IT WORKS ===== */
+        .step-card {
+            background: white;
+            border-radius: 16px;
+            padding: 32px 24px;
+            text-align: center;
+            position: relative;
+            border: 2px solid var(--gray-200);
+            transition: all 0.3s ease;
+        }
+
+        .step-card:hover {
+            border-color: var(--orange);
+            transform: translateY(-3px);
+        }
+
+        .step-number {
+            background: linear-gradient(135deg, var(--orange), var(--orange-light));
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            font-weight: 900;
+            margin: 0 auto 16px;
+            box-shadow: 0 4px 15px var(--orange-glow);
+        }
+
+        .step-title {
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--navy);
+            margin-bottom: 6px;
+        }
+
+        .step-text {
+            font-size: 13px;
+            color: var(--gray-500);
+            line-height: 1.6;
+        }
+
+        /* ===== FAQ ===== */
+        .faq-item {
+            background: white;
+            border-radius: 12px;
+            margin-bottom: 10px;
+            border: 2px solid var(--gray-200);
+            overflow: hidden;
+            transition: all 0.2s;
+        }
+
+        .faq-item.open {
+            border-color: rgba(232,83,14,0.3);
+        }
+
+        .faq-question {
+            padding: 20px 24px;
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--navy);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.2s;
+        }
+
+        .faq-question:hover {
+            background: var(--gray-50);
+        }
+
+        .faq-toggle {
+            font-size: 22px;
+            color: var(--orange);
+            font-weight: 300;
+            transition: transform 0.3s;
+            flex-shrink: 0;
+        }
+
+        .faq-item.open .faq-toggle {
+            transform: rotate(45deg);
+        }
+
+        .faq-answer {
+            display: none;
+            padding: 0 24px 20px;
+            font-size: 14px;
+            color: var(--gray-500);
+            line-height: 1.7;
+        }
+
+        .faq-item.open .faq-answer {
+            display: block;
+        }
+
+
+        .faq-answer strong {
+            color: var(--navy);
+            font-weight: 700;
+        }
+
+        .faq-answer br {
+            line-height: 1.8;
+        }
+
+        /* ===== TESTIMONIALS ===== */
+        .testimonial-card {
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 16px;
+            padding: 32px;
+            backdrop-filter: blur(10px);
+        }
+
+        .testimonial-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, var(--orange), var(--orange-light));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            color: white;
+            font-weight: 900;
+            margin-bottom: 16px;
+        }
+
+        .testimonial-text {
+            font-size: 14px;
+            color: rgba(255,255,255,0.8);
+            line-height: 1.75;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+
+        .testimonial-name {
+            font-size: 15px;
+            font-weight: 800;
+            color: white;
+        }
+
+        .testimonial-role {
+            font-size: 12px;
+            color: rgba(255,255,255,0.45);
+        }
+
+        /* ===== GUARANTEES ===== */
+        .guarantee-card {
+            background: white;
+            border-radius: 16px;
+            padding: 28px;
+            border: 2px solid var(--gray-200);
+            transition: all 0.3s;
+        }
+
+        .guarantee-card:hover {
+            border-color: var(--orange);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(232,83,14,0.1);
+        }
+
+        .guarantee-icon {
+            font-size: 36px;
+            margin-bottom: 12px;
+        }
+
+        .guarantee-title {
+            font-size: 18px;
+            font-weight: 900;
+            color: var(--navy);
+            margin-bottom: 8px;
+        }
+
+        .guarantee-text {
+            font-size: 13px;
+            color: var(--gray-500);
+            line-height: 1.65;
+        }
+
+        /* ===== PRICING BOX ===== */
+        .pricing-hero {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 48px;
+        }
+
+        .pricing-box {
+            background: white;
+            border-radius: 16px;
+            padding: 32px;
+            text-align: center;
+            border: 2px solid var(--gray-200);
+        }
+
+        .pricing-box .amount {
+            font-size: 48px;
+            font-weight: 900;
+            color: var(--navy);
+        }
+
+        .pricing-box .amount.green {
+            color: var(--green);
+        }
+
+        .pricing-box .per {
+            font-size: 16px;
+            color: var(--gray-500);
+            font-weight: 600;
+        }
+
+        .pricing-box .desc {
+            font-size: 13px;
+            color: var(--gray-500);
+            margin-top: 4px;
+        }
+
+        .pricing-box .label {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--gray-500);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* ===== COMPARISON ===== */
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+        }
+
+        .comparison-table th {
+            padding: 16px 20px;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .comparison-table thead tr {
+            background: var(--navy);
+        }
+
+        .comparison-table th:first-child {
+            color: white;
+            text-align: left;
+        }
+
+        .comparison-table th.easyloc {
+            color: var(--orange);
+        }
+
+        .comparison-table th.other {
+            color: rgba(255,255,255,0.5);
+        }
+
+        .comparison-table td {
+            padding: 14px 20px;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .comparison-table td:first-child {
+            text-align: left;
+            font-weight: 600;
+            color: var(--navy);
+        }
+
+        .comparison-table tbody tr:nth-child(even) {
+            background: var(--gray-50);
+        }
+
+        .comparison-table tbody tr:nth-child(odd) {
+            background: white;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            background: var(--navy-dark);
+            padding: 60px 20px 30px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-logo {
+            font-size: 24px;
+            font-weight: 900;
+            color: white;
+            margin-bottom: 12px;
+        }
+
+        .footer-logo span {
+            color: var(--orange);
+        }
+
+        .footer-desc {
+            font-size: 13px;
+            color: rgba(255,255,255,0.4);
+            line-height: 1.6;
+        }
+
+        .footer-heading {
+            font-size: 12px;
+            font-weight: 700;
+            color: rgba(255,255,255,0.5);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 16px;
+        }
+
+        .footer-link {
+            display: block;
+            font-size: 14px;
+            color: rgba(255,255,255,0.6);
+            text-decoration: none;
+            padding: 4px 0;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .footer-link:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.06);
+            padding-top: 20px;
+            text-align: center;
+            font-size: 12px;
+            color: rgba(255,255,255,0.25);
+        }
+
+        .footer-socials {
+            display: flex;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .social-badge {
+            padding: 6px 14px;
+            border-radius: 8px;
+            background: rgba(255,255,255,0.06);
+            color: rgba(255,255,255,0.6);
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        /* ===== CONTACT FORM ===== */
+        .form-group {
+            margin-bottom: 14px;
+        }
+
+        .form-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--gray-700);
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: 10px;
+            border: 2px solid var(--gray-200);
+            font-size: 14px;
+            font-family: inherit;
+            transition: border 0.2s;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--orange);
+        }
+
+        textarea.form-input {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        /* ===== PAGE NAVIGATION ===== */
+        .page { display: none; }
+        .page.active { display: block; }
+
+        /* ===== ANIMATIONS ===== */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ===== NOTE CARD ===== */
+        .note-card {
+            background: var(--cream);
+            border-left: 4px solid var(--orange);
+            padding: 20px 24px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-top: 24px;
+        }
+
+        .note-icon {
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+
+        .note-text {
+            font-size: 14px;
+            color: var(--gray-700);
+            font-weight: 600;
+            line-height: 1.5;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .nav-mobile-toggle { display: block; }
+            .nav-mobile {
+                position: fixed;
+                top: 65px;
+                left: 0;
+                right: 0;
+                background: var(--navy-dark);
+                padding: 16px;
+                display: flex;
+                flex-direction: column;
+                gap: 4px;
+                z-index: 999;
+            }
+            .nav-mobile .nav-link {
+                display: block;
+                padding: 12px 16px;
+            }
+            .grid-2, .grid-3, .grid-4, .pricing-hero {
+                grid-template-columns: 1fr;
+            }
+            .hero h1 { font-size: 32px; }
+            .footer-grid { grid-template-columns: 1fr 1fr; gap: 24px; }
+            .comparison-table { font-size: 12px; }
+            .comparison-table th, .comparison-table td { padding: 10px 8px; }
+            .section { padding: 60px 20px; }
+        }
+
+        @media (max-width: 480px) {
+            .hero-stats { flex-direction: column; align-items: center; }
+            .footer-grid { grid-template-columns: 1fr; }
+            .product-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ===== NAVIGATION ===== -->
+<nav class="nav">
+    <div class="nav-inner">
+        <div class="nav-logo" onclick="showPage('home')">EASY<span>LOC</span></div>
+        <div class="nav-links">
+            <a class="nav-link active" onclick="showPage('home')">Accueil</a>
+            <a class="nav-link" onclick="showPage('catalog')">Catalogue</a>
+            <a class="nav-link" onclick="showPage('pricing')">Tarifs</a>
+            <a class="nav-link" onclick="showPage('about')">Mission</a>
+            <a class="nav-link" onclick="showPage('faq')">FAQ</a>
+            <a class="nav-link" onclick="showPage('contact')">Contact</a>
+            <button class="nav-cta" onclick="showPage('reservation')">Réserver</button>
+        </div>
+        <button class="nav-mobile-toggle" onclick="toggleMobileNav()">☰</button>
+    </div>
+    <div class="nav-mobile" id="mobileNav" style="display:none;">
+        <a class="nav-link" onclick="showPage('home')">Accueil</a>
+        <a class="nav-link" onclick="showPage('catalog')">Catalogue</a>
+        <a class="nav-link" onclick="showPage('pricing')">Tarifs</a>
+        <a class="nav-link" onclick="showPage('about')">Mission</a>
+        <a class="nav-link" onclick="showPage('faq')">FAQ</a>
+        <a class="nav-link" onclick="showPage('contact')">Contact</a>
+        <button class="nav-cta" onclick="showPage('reservation')" style="margin-top:8px;">Réserver</button>
+    </div>
+</nav>
+
+<!-- ===== HOME PAGE ===== -->
+<div class="page active" id="page-home">
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-badge">🎓 Nouveau à Marseille ?</div>
+            <h1>Loue ton électroménager.<br><span class="highlight">Pas de prise de tête.</span></h1>
+            <p class="subtitle">Micro-ondes, machine à laver, air fryer… Tout ce dont tu as besoin, livré et installé chez toi à partir de <strong>9€/mois</strong>.</p>
+            <div class="hero-buttons">
+                <button class="btn-primary" onclick="showPage('catalog')">Voir le catalogue →</button>
+                <button class="btn-secondary" onclick="showPage('pricing')">Nos tarifs</button>
+            </div>
+            <div class="hero-stats">
+                <div class="stat-card">
+                    <span class="number">75 000+</span>
+                    <span class="label">Étudiants à Marseille</span>
+                </div>
+                <div class="stat-card">
+                    <span class="number">9€</span>
+                    <span class="label">Par mois, tout inclus</span>
+                </div>
+                <div class="stat-card">
+                    <span class="number">48-72h</span>
+                    <span class="label">Livraison & installation</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pourquoi la location ? -->
+    <section class="section section-white">
+        <div class="container">
+            <div class="text-center"><span class="section-badge">Pourquoi la location ?</span></div>
+            <h2 class="section-title">Pourquoi payer plein pot quand tu peux louer ?</h2>
+            <p class="section-subtitle">EASYLOC, c'est l'alternative intelligente à l'achat. Voici pourquoi.</p>
+            <div class="grid-2">
+                <div class="advantage-card">
+                    <span class="tag">💰 Avantage économique</span>
+                    <h3>Tu économises, c'est mathématique.</h3>
+                    <div class="comparison">Location 6 mois : <strong>54€</strong> <span class="vs">vs</span> Achat neuf : <strong>70-80€</strong></div>
+                    <ul>
+                        <li>Pas de revente à gérer en fin de période</li>
+                        <li>Pas d'argent bloqué dans un appareil inutilisé</li>
+                    </ul>
+                </div>
+                <div class="advantage-card">
+                    <span class="tag">⚡ Simplicité</span>
+                    <h3>Zéro galère, zéro stress.</h3>
+                    <ul>
+                        <li>Investissement initial minimal : 30€ de caution remboursable</li>
+                        <li>Pas d'encombrement lors des déménagements</li>
+                        <li>Récupération automatique en fin de location</li>
+                    </ul>
+                </div>
+                <div class="advantage-card">
+                    <span class="tag">✅ Qualité garantie</span>
+                    <h3>Du matos qui marche, point.</h3>
+                    <ul>
+                        <li>Matériel testé avant livraison</li>
+                        <li>Remplacement gratuit en cas de panne</li>
+                        <li>SAV réactif</li>
+                    </ul>
+                </div>
+                <div class="advantage-card">
+                    <span class="tag">🔄 Flexibilité</span>
+                    <h3>Ta vie bouge, on s'adapte.</h3>
+                    <ul>
+                        <li>Sans engagement après le premier mois</li>
+                        <li>Prolongation automatique possible</li>
+                        <li>Adapté aux stages, alternances et échanges universitaires</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Fonctionnement -->
+    <section class="section section-cream">
+        <div class="container">
+            <div class="text-center"><span class="section-badge">Fonctionnement</span></div>
+            <h2 class="section-title">Comment ça marche</h2>
+            <p class="section-subtitle">De la commande à la livraison en 4 étapes simples.</p>
+            <div class="grid-4">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <div class="step-title">Réservation</div>
+                    <div class="step-text">Commande en ligne avec paiement sécurisé</div>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <div class="step-title">Livraison</div>
+                    <div class="step-text">Livraison incluse à Marseille sous 48-72h. Installation comprise.</div>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <div class="step-title">Utilisation</div>
+                    <div class="step-text">Prélèvement automatique mensuel de 9€. Support disponible si nécessaire.</div>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">4</div>
+                    <div class="step-title">Restitution</div>
+                    <div class="step-text">Préavis de 7 jours. Récupération à domicile. Caution remboursée sous 48h.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Produits preview -->
+    <section class="section section-white">
+        <div class="container">
+            <div class="text-center"><span class="section-badge">Catalogue</span></div>
+            <h2 class="section-title">Nos appareils</h2>
+            <p class="section-subtitle">Tout est à 9€/mois, livraison et installation incluses.</p>
+            <div class="product-grid" id="product-grid-home"></div>
+            <div class="text-center" style="margin-top:36px;">
+                <button class="btn-primary" onclick="showPage('catalog')">Voir tout le catalogue →</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Guarantees -->
+    <section class="section section-cream">
+        <div class="container">
+            <div class="text-center"><span class="section-badge">Nos garanties</span></div>
+            <h2 class="section-title">On assure. Littéralement.</h2>
+            <p class="section-subtitle">Pas de belles promesses en l'air. Voici ce qu'on te garantit, noir sur blanc.</p>
+            <div class="grid-2">
+                <div class="guarantee-card">
+                    <div class="guarantee-icon">✨</div>
+                    <div class="guarantee-title">Matériel nickel</div>
+                    <div class="guarantee-text">Chaque appareil est nettoyé, désinfecté et testé avant de partir chez toi. On bosse qu'avec des marques fiables. Tu reçois du matos en bon état, toujours.</div>
+                </div>
+                <div class="guarantee-card">
+                    <div class="guarantee-icon">🎓</div>
+                    <div class="guarantee-title">Service étudiant</div>
+                    <div class="guarantee-text">Prix clairs, sans surprise. SAV dispo par chat, mail ou téléphone. On est étudiants aussi, on sait ce que c'est : pas de blabla inutile.</div>
+                </div>
+                <div class="guarantee-card">
+                    <div class="guarantee-icon">🔒</div>
+                    <div class="guarantee-title">Sécurité totale</div>
+                    <div class="guarantee-text">Paiement 100% sécurisé, tes données protégées. Tous nos appareils respectent les normes électriques françaises. Tranquille.</div>
+                </div>
+                <div class="guarantee-card">
+                    <div class="guarantee-icon">🔄</div>
+                    <div class="guarantee-title">Annulation flexible</div>
+                    <div class="guarantee-text">Tu préviens 7 jours avant, c'est bon. Aucune pénalité. Ta caution ? Remboursée direct dès qu'on récupère l'appareil.</div>
+                </div>
+            </div>
+            <div class="note-card" style="margin-top:32px;">
+                <span class="note-icon">🛡️</span>
+                <span class="note-text"><strong>Satisfait ou remboursé</strong> — Pas content ? On reprend le matos, sans question. Tu peux même échanger dans les 14 premiers jours. L'objectif c'est que tu sois bien équipé, point.</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="section section-navy">
+        <div class="container">
+            <div class="text-center"><span class="section-badge" style="background:rgba(232,83,14,0.2);">Témoignages</span></div>
+            <h2 class="section-title white">Ce qu'en disent les étudiants</h2>
+            <p class="section-subtitle white">De vrais retours, sans filtre.</p>
+            <div style="display:flex;flex-direction:column;gap:20px;">
+                <!-- Testimonial 1 -->
+                <div class="testimonial-card">
+                    <div class="testimonial-avatar">M</div>
+                    <div class="testimonial-text">Franchement, j'avais peur de me faire arnaquer avec de la location. Genre recevoir un truc pourri qui marche à moitié... Mais là, nickel. Le micro-ondes est propre, il chauffe bien, et surtout j'ai pas eu à claquer 80€ pour un truc que j'allais abandonner dans 6 mois.<br><br>Mes parents voulaient que j'achète neuf sur Amazon, mais j'avais pas envie de jeter de l'argent par les fenêtres. Avec EASYLOC, je paie 9€/mois et je dors tranquille. Et en vrai, leur SAV répond direct sur WhatsApp, pas comme ces grosses boîtes où tu attends 3 jours une réponse automatique.</div>
+                    <div class="testimonial-name">Mohamed Afdaliat</div>
+                    <div class="testimonial-role">Étudiant à Marseille</div>
+                </div>
+                <!-- Testimonial 2 -->
+                <div class="testimonial-card">
+                    <div class="testimonial-avatar">N</div>
+                    <div class="testimonial-text">Sérieux, j'en avais marre de ces sites de location qui te demandent 200€ de caution pour un grille-pain. Comme si on avait des thunes à bloquer pendant 6 mois...<br><br>EASYLOC, c'est 30€ de caution, tu récupères ton argent dès que tu rends l'appareil, et le premier mois à 1€ franchement c'est cadeau. J'ai même recommandé à mes colocs, on s'est équipés tous les trois et on a économisé facile 150€ par personne.<br><br>En plus ils livrent à Marseille en 48h, c'est pas comme les gros sites nationaux qui mettent 2 semaines. Ils ont compris que quand t'arrives en septembre, t'as besoin de ton matos tout de suite, pas en octobre.</div>
+                    <div class="testimonial-name">Nassima Mouaouia</div>
+                    <div class="testimonial-role">Étudiante à Marseille</div>
+                </div>
+                <!-- Testimonial 3 -->
+                <div class="testimonial-card">
+                    <div class="testimonial-avatar">A</div>
+                    <div class="testimonial-text">Quand je suis arrivé en septembre, je me suis dit 'je vais tenir sans micro-ondes, c'est pas urgent'. Sauf que bon... réchauffer des plats à la casserole tous les jours, ça devient relou très vite.<br><br>Le problème c'est que j'avais déjà claqué 500€ dans les livres, l'assurance, la caution de l'appart... J'avais pas 100€ de plus à mettre dans un micro-ondes que j'allais abandonner l'année prochaine pour mon stage à Paris.<br><br>Avec EASYLOC, j'ai loué un micro-ondes nickel pour 9€/mois. Ça fait 54€ sur 6 mois. Le même sur Amazon c'est 89€ minimum, et encore c'est du bas de gamme. Là j'ai du Whirlpool, livré et tout. Je sais pas pourquoi ce service existait pas avant, c'est juste logique pour nous les étudiants qui bougent tout le temps.<br><br>Ah et le top : pas besoin de le revendre sur Leboncoin en fin d'année à un mec chelou qui va te négocier pendant 3 semaines. Tu rends, c'est fini.</div>
+                    <div class="testimonial-name">André Mouillé</div>
+                    <div class="testimonial-role">Étudiant à Centrale Méditerranée</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Comparison Table -->
+    <section class="section section-white">
+        <div class="container">
+            <div class="text-center"><span class="section-badge">Comparatif</span></div>
+            <h2 class="section-title">EASYLOC vs les alternatives</h2>
+            <p class="section-subtitle">La location, c'est la solution la plus maline. La preuve.</p>
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th class="easyloc">EASYLOC</th>
+                        <th class="other">Achat neuf</th>
+                        <th class="other">Occasion</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Investissement initial</td><td><strong>30€ caution</strong></td><td>50-300€</td><td>20-150€</td></tr>
+                    <tr><td>Garantie fonctionnelle</td><td><strong>✅ Toujours</strong></td><td>✅ 2 ans</td><td>❌ Aucune</td></tr>
+                    <tr><td>Livraison & installation</td><td><strong>✅ Incluse</strong></td><td>❌ Payant</td><td>❌ À toi</td></tr>
+                    <tr><td>Flexibilité</td><td><strong>✅ Sans engagement</strong></td><td>❌ Tu le gardes</td><td>❌ Revente galère</td></tr>
+                    <tr><td>Propreté garantie</td><td><strong>✅ Nettoyé</strong></td><td>✅ Neuf</td><td>❌ Aucune idée</td></tr>
+                    <tr><td>Impact écologique</td><td><strong>✅ Circulaire</strong></td><td>❌ Déchets</td><td>✅ Réemploi</td></tr>
+                    <tr><td>SAV réactif</td><td><strong>✅ WhatsApp</strong></td><td>❌ 3 jours</td><td>❌ Aucun</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="section section-orange" style="text-align:center;">
+        <div class="container">
+            <h2 style="font-size:clamp(28px,5vw,48px);font-weight:900;color:white;margin-bottom:16px;">Prêt à simplifier ta vie ?</h2>
+            <p style="font-size:18px;color:rgba(255,255,255,0.85);margin-bottom:36px;line-height:1.6;">Rejoins les étudiants qui ont choisi la location intelligente.</p>
+            <button onclick="showPage('catalog')" style="background:white;color:var(--orange);border:none;padding:18px 48px;border-radius:14px;font-size:17px;font-weight:800;cursor:pointer;box-shadow:0 8px 30px rgba(0,0,0,0.15);">Découvrir le catalogue →</button>
+        </div>
+    </section>
+
+</div>
+
+<!-- ===== CATALOG PAGE ===== -->
+<div class="page" id="page-catalog">
+    <div style="padding-top:85px;">
+        <section class="section section-white">
+            <div class="container">
+                <div class="text-center"><span class="section-badge">Catalogue</span></div>
+                <h2 class="section-title">Tous nos appareils</h2>
+                <p class="section-subtitle">9€/mois par appareil. Caution 30€. Livraison et installation incluses.</p>
+                <div class="product-grid" id="product-grid-full"></div>
+            </div>
+        </section>
+    </div>
+</div>
+
+<!-- ===== PRICING PAGE ===== -->
+<div class="page" id="page-pricing">
+    <div style="padding-top:85px;">
+        <section class="section section-white">
+            <div class="container">
+                <div class="text-center"><span class="section-badge">Tarifs</span></div>
+                <h2 class="section-title">Transparent et sans surprise</h2>
+                <p class="section-subtitle">Un seul prix, tout est inclus.</p>
+                <div class="pricing-hero">
+                    <div class="pricing-box">
+                        <div class="label">Location mensuelle</div>
+                        <div class="amount">9€<span class="per">/mois</span></div>
+                        <div class="desc">Par appareil</div>
+                    </div>
+                    <div class="pricing-box">
+                        <div class="label">Caution</div>
+                        <div class="amount">30€</div>
+                        <div class="desc">Remboursable à la restitution</div>
+                    </div>
+                    <div class="pricing-box">
+                        <div class="label">Livraison & installation</div>
+                        <div class="amount green">0€</div>
+                        <div class="desc">Incluses dans tout Marseille</div>
+                    </div>
+                </div>
+                <div class="note-card">
+                    <span class="note-icon">💡</span>
+                    <span class="note-text"><strong>Option assurance casse : 2€/mois</strong> — Réparation ou remplacement couvert en cas de dommage accidentel.</span>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+<!-- ===== ABOUT PAGE ===== -->
+<div class="page" id="page-about">
+    <div style="padding-top:65px;">
+        <section class="hero" style="padding:100px 20px 60px;">
+            <div class="container">
+                <div class="hero-badge">Notre Mission</div>
+                <h1>Stop au gaspillage<br><span class="highlight">d'électroménager.</span></h1>
+                <p class="subtitle">Chaque année, des milliers d'étudiants achètent un micro-ondes, l'utilisent 10 mois, puis le jettent. EASYLOC casse ce cycle absurde.</p>
+            </div>
+        </section>
+        <section class="section section-white">
+            <div class="container">
+                <div class="grid-3">
+                    <div class="card" style="text-align:center;">
+                        <div class="card-icon">🌍</div>
+                        <div class="card-title">Économie circulaire</div>
+                        <div class="card-text">Un appareil loué, c'est un appareil qui sert à plusieurs au lieu de finir à la déchetterie.</div>
+                    </div>
+                    <div class="card" style="text-align:center;">
+                        <div class="card-icon">💸</div>
+                        <div class="card-title">Budget respecté</div>
+                        <div class="card-text">On sait que les fins de mois sont serrées. 9€/mois, c'est le prix d'un kebab + frites.</div>
+                    </div>
+                    <div class="card" style="text-align:center;">
+                        <div class="card-icon">🚀</div>
+                        <div class="card-title">Mobilité facilitée</div>
+                        <div class="card-text">Erasmus, stage, coloc… Ta vie bouge, ton électroménager suit.</div>
+                    </div>
+                </div>
+                <div style="background:var(--cream);border-radius:20px;padding:48px;text-align:center;margin-top:48px;">
+                    <h3 style="font-size:24px;font-weight:900;color:var(--navy);margin-bottom:32px;">L'équipe EASYLOC</h3>
+                    <div class="grid-4">
+                        <div>
+                            <div style="width:70px;height:70px;border-radius:18px;background:linear-gradient(135deg,var(--navy),var(--navy-light));display:flex;align-items:center;justify-content:center;font-size:28px;margin:0 auto 10px;color:white;font-weight:900;">A</div>
+                            <div style="font-size:16px;font-weight:800;color:var(--navy);">André</div>
+                            <div style="font-size:12px;color:var(--gray-500);">Fondateur & Dev</div>
+                        </div>
+                        <div>
+                            <div style="width:70px;height:70px;border-radius:18px;background:linear-gradient(135deg,var(--orange),var(--orange-light));display:flex;align-items:center;justify-content:center;font-size:28px;margin:0 auto 10px;color:white;font-weight:900;">N</div>
+                            <div style="font-size:16px;font-weight:800;color:var(--navy);">Nassima</div>
+                            <div style="font-size:12px;color:var(--gray-500);">Marketing & Com</div>
+                        </div>
+                        <div>
+                            <div style="width:70px;height:70px;border-radius:18px;background:linear-gradient(135deg,var(--navy),var(--navy-light));display:flex;align-items:center;justify-content:center;font-size:28px;margin:0 auto 10px;color:white;font-weight:900;">Y</div>
+                            <div style="font-size:16px;font-weight:800;color:var(--navy);">Yahya</div>
+                            <div style="font-size:12px;color:var(--gray-500);">Opérations & Logistique</div>
+                        </div>
+                        <div>
+                            <div style="width:70px;height:70px;border-radius:18px;background:linear-gradient(135deg,var(--orange),var(--orange-light));display:flex;align-items:center;justify-content:center;font-size:28px;margin:0 auto 10px;color:white;font-weight:900;">M</div>
+                            <div style="font-size:16px;font-weight:800;color:var(--navy);">Mohamed</div>
+                            <div style="font-size:12px;color:var(--gray-500);">Finance & Stratégie</div>
+                        </div>
+                    </div>
+                    <p style="font-size:13px;color:var(--gray-500);margin-top:24px;">Étudiants à Centrale Méditerranée · Promotion 2028 · Projet Entrep'</p>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+<!-- ===== FAQ PAGE ===== -->
+<div class="page" id="page-faq">
+    <div style="padding-top:85px;">
+        <section class="section section-white">
+            <div class="container" style="max-width:700px;">
+                <div class="text-center"><span class="section-badge">FAQ</span></div>
+                <h2 class="section-title">Questions fréquentes</h2>
+                <p class="section-subtitle">Tu as une question ? La réponse est sûrement ici.</p>
+                <div id="faq-container"></div>
+            </div>
+        </section>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- ===== CGU PAGE ===== -->
+<div class="page" id="page-cgu">
+    <div style="padding-top:85px;">
+        <section class="section section-white">
+            <div class="container" style="max-width:700px;">
+                <div class="text-center"><span class="section-badge">CGU</span></div>
+                <h2 class="section-title">Conditions Générales d'Utilisation</h2>
+                <p class="section-subtitle">Nos conditions de location en toute transparence.</p>
+                <div id="cgu-container"></div>
+            </div>
+        </section>
+    </div>
+</div>
+
+
+
+<!-- ===== MENTIONS LÉGALES PAGE ===== -->
+<div class="page" id="page-mentions">
+    <div style="padding-top:85px;">
+        <section class="section section-white">
+            <div class="container" style="max-width:700px;">
+                <div class="text-center"><span class="section-badge">Légal</span></div>
+                <h2 class="section-title">Mentions légales</h2>
+                <p class="section-subtitle">Informations légales obligatoires concernant le site EASYLOC.</p>
+                <div id="mentions-container"></div>
+            </div>
+        </section>
+    </div>
+</div>
+
+
+<!-- ===== PRIVACY POLICY PAGE ===== -->
+<div class="page" id="page-privacy">
+    <div style="padding-top:85px;">
+        <section class="section section-white">
+            <div class="container" style="max-width:700px;">
+                <div class="text-center"><span class="section-badge">RGPD</span></div>
+                <h2 class="section-title">Politique de confidentialité</h2>
+                <p class="section-subtitle">Comment nous protégeons et utilisons vos données personnelles.</p>
+                <div id="privacy-container"></div>
+            </div>
+        </section>
+    </div>
+</div>
+
+
+
+
+
+
+<!-- ===== CONTACT PAGE ===== -->
+<div class="page" id="page-contact">
+    <div style="padding-top:85px;">
+        <section class="section section-white">
+            <div class="container" style="max-width:800px;">
+                <div class="text-center"><span class="section-badge">Contact</span></div>
+                <h2 class="section-title">Une question ? Écris-nous !</h2>
+                <p class="section-subtitle">On te répond sous 24h. Promis.</p>
+                <div class="grid-2">
+                    <div>
+                        <div style="display:flex;flex-direction:column;gap:14px;">
+                            <div style="display:flex;gap:14px;align-items:flex-start;padding:20px;background:var(--gray-50);border-radius:14px;">
+                                <span style="font-size:24px;">📧</span>
+                                <div>
+                                    <div style="font-size:13px;font-weight:600;color:var(--gray-500);">Email</div>
+                                    <div style="font-size:15px;font-weight:700;color:var(--navy);">easy.loc.aide@gmail.com</div>
+                                </div>
+                            </div>
+                            <div style="display:flex;gap:14px;align-items:flex-start;padding:20px;background:var(--gray-50);border-radius:14px;">
+                                <span style="font-size:24px;">📍</span>
+                                <div>
+                                    <div style="font-size:13px;font-weight:600;color:var(--gray-500);">Zone de livraison</div>
+                                    <div style="font-size:15px;font-weight:700;color:var(--navy);">Marseille : Castellane, Timone, Luminy, centre-ville</div>
+                                </div>
+                            </div>
+                            <div style="display:flex;gap:14px;align-items:flex-start;padding:20px;background:var(--gray-50);border-radius:14px;">
+                                <span style="font-size:24px;">📱</span>
+                                <div>
+                                    <div style="font-size:13px;font-weight:600;color:var(--gray-500);">Réseaux sociaux</div>
+                                    <div style="font-size:15px;font-weight:700;color:var(--navy);">à créer</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="display:flex;gap:8px;margin-top:16px;">
+                            <span class="social-badge" style="background:var(--gray-100);color:var(--navy);">Instagram</span>
+                            <span class="social-badge" style="background:var(--gray-100);color:var(--navy);">Facebook</span>
+                            <span class="social-badge" style="background:var(--gray-100);color:var(--navy);">TikTok</span>
+                        </div>
+                    </div>
+                    <div style="background:var(--gray-50);border-radius:16px;padding:28px;">
+                        <div id="contact-form-container">
+                            <form id="contact-form" onsubmit="sendContactEmail(event)">
+                                <div class="form-group">
+                                    <label class="form-label">Nom *</label>
+                                    <input class="form-input" type="text" name="from_name" placeholder="Ton nom" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Email *</label>
+                                    <input class="form-input" type="email" name="from_email" placeholder="ton@email.fr" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Message *</label>
+                                    <textarea class="form-input" name="message" placeholder="Ton message..." required></textarea>
+                                </div>
+                                <button type="submit" class="btn-primary" style="width:100%;" id="contact-submit-btn">
+                                    Envoyer →
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+<!-- ===== RESERVATION PAGE ===== -->
+<div class="page" id="page-reservation">
+    <div style="padding-top:85px;">
+        <section class="section section-cream">
+            <div class="container" style="max-width:900px;">
+                <div class="text-center"><span class="section-badge">Réservation</span></div>
+                <h2 class="section-title">Réserve ton appareil</h2>
+                <p class="section-subtitle">Remplis le formulaire. On te recontacte sous 24h !</p>
+                <div id="reservation-form-container">
+                    <div style="background:white;border-radius:16px;padding:32px;margin-bottom:20px;box-shadow:0 4px 20px rgba(0,0,0,0.04);">
+                        <h3 style="font-size:18px;font-weight:800;color:var(--navy);margin-bottom:20px;">1. Choisis ton appareil</h3>
+                        <div id="product-selector" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:10px;"></div>
+                    </div>
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+                        <div style="background:white;border-radius:16px;padding:32px;box-shadow:0 4px 20px rgba(0,0,0,0.04);">
+                            <h3 style="font-size:18px;font-weight:800;color:var(--navy);margin-bottom:20px;">2. Durée & options</h3>
+                            <div class="form-group">
+                                <label class="form-label">Date de début</label>
+                                <input class="form-input" type="date" id="res-date">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Durée : <strong id="res-months-label" style="color:var(--orange);">1 mois</strong></label>
+                                <input type="range" min="1" max="12" value="1" id="res-months" style="width:100%;accent-color:var(--orange);" oninput="updateReservation()">
+                            </div>
+                            <label style="display:flex;align-items:center;gap:10px;cursor:pointer;padding:12px 16px;border-radius:10px;background:var(--gray-50);border:1px solid transparent;transition:all 0.2s;">
+                                <input type="checkbox" id="res-insurance" style="accent-color:var(--orange);" onchange="updateReservation()">
+                                <div>
+                                    <div style="font-size:14px;font-weight:600;color:var(--navy);">Assurance casse</div>
+                                    <div style="font-size:12px;color:var(--gray-500);">+2€/mois · Protection dommages</div>
+                                </div>
+                            </label>
+                        </div>
+                        <div style="background:var(--navy);border-radius:16px;padding:32px;color:white;">
+                            <h3 style="font-size:18px;font-weight:800;margin-bottom:20px;">💳 Récapitulatif</h3>
+                            <div id="res-product-display" style="font-size:32px;margin-bottom:12px;">📡</div>
+                            <div id="res-product-name" style="font-size:16px;font-weight:600;margin-bottom:16px;">Micro-ondes Simple</div>
+                            <div id="res-summary" style="border-top:1px solid rgba(255,255,255,0.1);padding-top:16px;"></div>
+                        </div>
+                    </div>
+                    <div style="background:white;border-radius:16px;padding:32px;margin-top:20px;box-shadow:0 4px 20px rgba(0,0,0,0.04);">
+                        <h3 style="font-size:18px;font-weight:800;color:var(--navy);margin-bottom:20px;">3. Tes coordonnées</h3>
+                        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+                            <div class="form-group">
+                                <label class="form-label">Prénom *</label>
+                                <input id="res-prenom" class="form-input" placeholder="Lucas">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Nom *</label>
+                                <input id="res-nom" class="form-input" placeholder="Martin">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Email *</label>
+                                <input id="res-email" class="form-input" type="email" placeholder="lucas@etu.univ-amu.fr">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Téléphone *</label>
+                                <input id="res-telephone" class="form-input" type="tel" placeholder="06 12 34 56 78">
+                            </div>
+                            <div class="form-group" style="grid-column:1/-1;">
+                                <label class="form-label">Adresse de livraison *</label>
+                                <input id="res-adresse" class="form-input" placeholder="42 rue de la République, 13001 Marseille">
+                            </div>
+                        </div>
+                        <button class="btn-primary" style="width:100%;margin-top:20px;padding:16px;" onclick="submitReservation()">Confirmer ma pré-inscription →</button>
+                        <p style="font-size:12px;color:var(--gray-500);text-align:center;margin-top:12px;">Aucun paiement prélevé à cette étape.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-grid">
+            <div>
+                <div class="footer-logo">EASY<span>LOC</span></div>
+                <p class="footer-desc">La location d'électroménager intelligente pour étudiants à Marseille.</p>
+                <div class="footer-socials">
+                    <span class="social-badge">Instagram</span>
+                    <span class="social-badge">Facebook</span>
+                    <span class="social-badge">TikTok</span>
+                </div>
+            </div>
+            <div>
+                <div class="footer-heading">Navigation</div>
+                <a class="footer-link" onclick="showPage('home')">Accueil</a>
+                <a class="footer-link" onclick="showPage('catalog')">Catalogue</a>
+                <a class="footer-link" onclick="showPage('pricing')">Tarifs</a>
+                <a class="footer-link" onclick="showPage('about')">Notre Mission</a>
+                <a class="footer-link" onclick="showPage('faq')">FAQ</a>
+                <a class="footer-link" onclick="showPage('contact')">Contact</a>
+            </div>
+            <div>
+                <div class="footer-heading">Légal</div>
+                <a class="footer-link" onclick="showPage('cgu')">CGU</a>
+                <a class="footer-link" onclick="showPage('privacy')">Politique RGPD</a>
+                <a class="footer-link" onclick="showPage('mentions')">Mentions légales</a>
+            </div>
+            <div>
+                <div class="footer-heading">Contact</div>
+                <a class="footer-link">easy.loc.aide@gmail.com</a>
+                <a class="footer-link">Marseille & environs</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            © 2025 EASYLOC · Projet Entrep' · Centrale Méditerranée
+        </div>
+    </div>
+</footer>
+
+<!-- ===== COOKIE BANNER ===== -->
+<div id="cookie-banner" style="position:fixed;bottom:0;left:0;right:0;background:var(--navy-dark);padding:20px;z-index:9999;display:none;box-shadow:0 -4px 20px rgba(0,0,0,0.3);">
+    <div class="container" style="display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;">
+        <div style="flex:1;min-width:300px;">
+            <p style="color:white;font-size:14px;margin:0;line-height:1.6;">
+                🍪 Nous utilisons des cookies pour améliorer votre expérience. En continuant, vous acceptez notre 
+                <a onclick="showPage('privacy')" style="color:var(--orange);text-decoration:underline;cursor:pointer;">politique de confidentialité</a>.
+            </p>
+        </div>
+        <div style="display:flex;gap:10px;">
+            <button onclick="acceptCookies()" class="btn-primary" style="padding:10px 24px;font-size:14px;">Accepter</button>
+            <button onclick="refuseCookies()" class="btn-secondary" style="padding:10px 24px;font-size:14px;">Refuser</button>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+<script>
+    // ===== DATA =====
+    const products = [
+        { id: 1, name: "Micro-ondes Four", desc: "Combiné micro-ondes et four, idéal pour réchauffer et cuisiner.", emoji: "", stock: 5 },
+        { id: 2, name: "Micro-ondes Simple", desc: "Compact et efficace, parfait pour ton studio.", emoji: "", stock: 8 },
+        { id: 3, name: "Machine à Laver", desc: "Plus besoin de la laverie ! Ta machine chez toi.", emoji: "", stock: 3 },
+        { id: 4, name: "Air Fryer", desc: "Cuisine saine et rapide, sans huile.", emoji: "", stock: 6 },
+        { id: 5, name: "Grille-pain", desc: "Des tartines croustillantes chaque matin.", emoji: "", stock: 10 },
+        { id: 6, name: "Gaufrier", desc: "Pour des goûters gourmands entre potes.", emoji: "", stock: 7 },
+        { id: 7, name: "Appareil à Raclette", desc: "L'indispensable des soirées d'hiver entre amis.", emoji: "", stock: 4 },
+        { id: 8, name: "Crêpière / Pancakes", desc: "Chandeleur ou brunch du dimanche, c'est toi le chef.", emoji: "", stock: 6 },
+    ];
+
+    const faqData = [
+        { q: "Durée minimale de location ?", a: "1 mois minimum, résiliable ensuite avec 7 jours de préavis." },
+        { q: "En cas de panne ?", a: "Remplacement gratuit sous 48h inclus dans l'abonnement." },
+        { q: "La caution ?", a: "30€ remboursés intégralement si restitution en bon état." },
+        { q: "Prolongation possible ?", a: "Oui, automatiquement. Résiliation possible à tout moment." },
+        { q: "Zone de livraison ?", a: "Toute la zone de Marseille : Castellane, Timone, Luminy, centre-ville." },
+        { q: "Mode de paiement ?", a: "Prélèvement automatique mensuel par carte bancaire." },
+        { q: "En cas de casse ?", a: "Réparation facturée au coût réel. Option assurance casse : 2€/mois." },
+        { q: "État du matériel ?", a: "Neuf ou reconditionné testé selon disponibilité et choix." },
+    ];
+
+    const cguData = [
+    { 
+        q: "Article 1 - Mentions légales et identification", 
+        a: `<strong>ÉDITEUR DU SITE</strong><br><br>
+        Raison sociale : EASYLOC<br>
+        Forme juridique : Projet entrepreneurial en cours de création<br>
+        Statut prévu : Micro-entreprise (Auto-entrepreneur)<br><br>
+        Siège social :<br>
+        EASYLOC<br>
+        Adresse à déterminer<br>
+        Marseille, France<br><br>
+        Numéro SIRET : En cours d'attribution<br>
+        Numéro TVA intracommunautaire : Non applicable (franchise en base TVA)<br><br>
+        Directeur de la publication : André Mouillé<br>
+        Responsable de la rédaction : André Mouillé<br><br>
+        Contact :<br>
+        Email : easy.loc.aide@gmail.com<br>
+        Téléphone : En cours d'attribution<br><br>
+        <strong>ACTIVITÉ PROFESSIONNELLE</strong><br><br>
+        Nature de l'activité : Location d'électroménager sans opérateur, à destination des particuliers, notamment des étudiants.<br><br>
+        Code NAF/APE : 7739Z (en cours d'attribution officielle)<br>
+        Libellé : Location et location-bail d'autres machines, équipements et biens matériels<br><br>
+        <strong>Note importante :</strong> Le service EASYLOC est actuellement en phase de validation marché dans le cadre du concours entrepreneurial "Entrep'" 2025-2026. Aucune transaction commerciale réelle n'est effectuée à ce stade.` 
+    },
+    { 
+        q: "Article 2 - Objet", 
+        a: "Les présentes Conditions Générales d'Utilisation (CGU) régissent la location d'appareils électroménagers par EASYLOC aux particuliers, notamment aux étudiants, sur le territoire de Marseille et ses environs. En réservant un appareil via notre site web ou tout autre canal de communication, le client accepte sans réserve l'intégralité des présentes CGU." 
+    },
+    { 
+        q: "Article 3 - Conditions de location et durée", 
+        a: `<strong>Durée minimale :</strong> La durée minimale de location est de 1 mois.<br><br>
+        <strong>Reconduction :</strong> Le contrat est tacitement reconduit mensuellement (renouvellement automatique) sauf résiliation par le client.<br><br>
+        <strong>Résiliation :</strong> Le client peut résilier à tout moment après le premier mois, moyennant un préavis de 7 jours calendaires envoyé par email à easy.loc.aide@gmail.com.<br><br>
+        <strong>Flexibilité :</strong> Aucun engagement de durée n'est exigé au-delà du premier mois. Cette formule est spécialement adaptée aux mobilités étudiantes (stages, échanges universitaires, alternances).` 
+    },
+    { 
+        q: "Article 4 - Tarifs et modalités de paiement", 
+        a: `<strong>Prix de location :</strong> 9€ par mois et par appareil, livraison et installation incluses.<br><br>
+        <strong>Caution :</strong> 30€ par appareil, remboursable intégralement sous 48h après restitution de l'appareil en bon état.<br><br>
+        <strong>Assurance casse optionnelle :</strong> 2€/mois. Couvre les réparations ou le remplacement en cas de dommage accidentel.<br><br>
+        <strong>Modalités de paiement :</strong><br>
+        • Paiement de la caution et du premier mois lors de la réservation<br>
+        • Prélèvement automatique mensuel obligatoire par carte bancaire<br>
+        • Paiement sécurisé via notre plateforme<br><br>
+        <strong>Franchise TVA :</strong> Prix TTC. TVA non applicable, article 293 B du CGI (régime micro-entreprise).` 
+    },
+    { 
+        q: "Article 5 - Livraison et installation", 
+        a: `<strong>Zone de livraison :</strong> Marseille et proches environs (Castellane, Timone, Luminy, centre-ville).<br><br>
+        <strong>Délai :</strong> Livraison sous 48 à 72 heures après confirmation de la réservation.<br><br>
+        <strong>Installation :</strong> Installation comprise dans le tarif. Notre équipe installe et teste l'appareil à votre domicile.<br><br>
+        <strong>Présence obligatoire :</strong> Le client ou un représentant doit être présent lors de la livraison pour réceptionner l'appareil et signer le bon de livraison.<br><br>
+        <strong>Frais :</strong> Aucun frais supplémentaire de livraison ou d'installation dans la zone couverte.` 
+    },
+    { 
+        q: "Article 6 - Caution et dépôt de garantie", 
+        a: `<strong>Montant :</strong> 30€ par appareil, encaissé lors de la réservation.<br><br>
+        <strong>Remboursement :</strong> La caution est remboursée intégralement sous 48h après restitution de l'appareil en bon état de fonctionnement et de propreté.<br><br>
+        <strong>Retenue sur caution :</strong> En cas de dégradation, salissure importante ou perte de l'appareil, la caution pourra être retenue totalement ou partiellement pour couvrir :<br>
+        • Les frais de nettoyage supplémentaires<br>
+        • Les réparations nécessaires<br>
+        • Le remplacement de l'appareil si irréparable<br><br>
+        Un état des lieux détaillé est effectué à la livraison et à la restitution. Le client est informé de toute retenue avant le remboursement.` 
+    },
+    { 
+        q: "Article 7 - État et entretien du matériel", 
+        a: `<strong>État à la livraison :</strong> Chaque appareil est nettoyé, désinfecté, testé et garanti fonctionnel avant livraison. Les appareils sont neufs ou reconditionnés de qualité professionnelle.<br><br>
+        <strong>Entretien courant :</strong> Le client s'engage à utiliser l'appareil conformément à sa destination et à en assurer l'entretien courant (nettoyage régulier, respect du mode d'emploi).<br><br>
+        <strong>Responsabilité du client :</strong> Le client est responsable de l'appareil pendant toute la durée de location. Il doit le maintenir en bon état et prévenir EASYLOC de toute anomalie.<br><br>
+        <strong>Interdictions :</strong> Toute modification, réparation non autorisée ou usage anormal de l'appareil est strictement interdit.` 
+    },
+    { 
+        q: "Article 8 - Panne et SAV", 
+        a: `<strong>Garantie de fonctionnement :</strong> EASYLOC garantit le bon fonctionnement de tous ses appareils.<br><br>
+        <strong>En cas de panne :</strong><br>
+        • Contacter immédiatement EASYLOC par email ou téléphone<br>
+        • Remplacement gratuit de l'appareil défectueux sous 48h<br>
+        • Aucun frais pour le client si la panne n'est pas due à une mauvaise utilisation<br><br>
+        <strong>SAV disponible :</strong><br>
+        • Email : easy.loc.aide@gmail.com<br>
+        • Téléphone : [à venir]<br>
+        • Réponse sous 24h maximum<br><br>
+        <strong>Panne due à une mauvaise utilisation :</strong> Si la panne est causée par le client (choc, usage non conforme, négligence), les frais de réparation sont à sa charge ou prélevés sur la caution.` 
+    },
+    { 
+        q: "Article 9 - Assurance casse optionnelle", 
+        a: `<strong>Tarif :</strong> 2€ par mois et par appareil.<br><br>
+        <strong>Couverture :</strong> L'assurance couvre les dommages accidentels (casse, choc, panne due à une mauvaise manipulation) et prend en charge :<br>
+        • La réparation de l'appareil<br>
+        • Le remplacement si irréparable<br><br>
+        <strong>Exclusions :</strong> Ne sont pas couverts :<br>
+        • Le vol de l'appareil<br>
+        • Les dommages intentionnels<br>
+        • L'usure normale<br><br>
+        <strong>Souscription :</strong> L'assurance peut être souscrite à tout moment pendant la durée de location.` 
+    },
+    { 
+        q: "Article 10 - Résiliation et restitution", 
+        a: `<strong>Préavis :</strong> 7 jours calendaires avant la fin du mois en cours. Demande de résiliation à envoyer par email à easy.loc.aide@gmail.com.<br><br>
+        <strong>Paiement du dernier mois :</strong> Le dernier mois est dû intégralement même en cas de résiliation en cours de mois.<br><br>
+        <strong>Modalités de restitution :</strong><br>
+        • Récupération à domicile par EASYLOC, sans frais<br>
+        • Rendez-vous convenu par email ou téléphone<br>
+        • État des lieux contradictoire effectué<br>
+        • Remboursement de la caution sous 48h si appareil conforme<br><br>
+        <strong>Non-restitution :</strong> En cas de non-restitution après résiliation, le client sera facturé du prix d'achat de l'appareil neuf (prix catalogue constructeur).` 
+    },
+    { 
+        q: "Article 11 - Responsabilités et assurance EASYLOC", 
+        a: `<strong>Assurance Responsabilité Civile Professionnelle :</strong><br>
+        Assurance en cours de souscription auprès de Hiscox France (souscription effective avant lancement commercial).<br><br>
+        <strong>Couverture prévue :</strong><br>
+        • Dommages corporels : jusqu'à 5 000 000 €<br>
+        • Dommages matériels : jusqu'à 500 000 €<br>
+        • Couverture géographique : France métropolitaine<br><br>
+        <strong>Cette assurance couvre :</strong><br>
+        • Les dommages causés par un défaut de l'appareil (incendie, fuite, etc.)<br>
+        • Les préjudices matériels et corporels liés à un dysfonctionnement de l'appareil loué<br><br>
+        <strong>Limite de responsabilité :</strong> EASYLOC ne peut être tenu responsable d'une mauvaise utilisation de l'appareil par le client ou d'un usage non conforme.` 
+    },
+    { 
+        q: "Article 12 - Protection des données personnelles (RGPD)", 
+        a: `<strong>Données collectées :</strong> Nom, prénom, email, téléphone, adresse de livraison<br><br>
+        <strong>Finalité :</strong> Gestion des réservations, livraison, facturation, support client.<br><br>
+        <strong>Durée de conservation :</strong> Pendant la durée de location + 3 ans (obligations comptables).<br><br>
+        <strong>Droits du client :</strong> Conformément au RGPD, vous disposez d'un droit d'accès, de rectification, de suppression et d'opposition. Pour exercer vos droits : easy.loc.aide@gmail.com<br><br>
+        <strong>Sécurité :</strong> Vos données sont stockées de manière sécurisée et ne sont jamais vendues à des tiers.` 
+    },
+    { 
+        q: "Article 13 - Droit de rétractation (14 jours)", 
+        a: `Conformément au Code de la consommation (articles L221-18 et suivants), le client dispose d'un délai de 14 jours à compter de la livraison pour se rétracter sans avoir à justifier de motifs ni à payer de pénalités.<br><br>
+        <strong>Modalités :</strong><br>
+        • Envoi d'un email à easy.loc.aide@gmail.com<br>
+        • Restitution de l'appareil dans son état d'origine<br>
+        • Remboursement intégral (caution + loyer) sous 14 jours<br><br>
+        <strong>Exception :</strong> Le droit de rétractation ne s'applique pas si le client demande expressément que la prestation commence avant la fin du délai de 14 jours.` 
+    },
+    { 
+        q: "Article 14 - Litiges et médiation", 
+        a: `<strong>Loi applicable :</strong> Droit français.<br><br>
+        <strong>Règlement amiable :</strong> En cas de litige, le client est invité à contacter EASYLOC en priorité pour tenter une résolution amiable : easy.loc.aide@gmail.com<br><br>
+        <strong>Médiation de la consommation :</strong> Conformément à l'article L612-1 du Code de la consommation, en cas de litige non résolu, le client peut recourir gratuitement à un médiateur de la consommation :<br><br>
+        <strong>Centre de médiation prévu :</strong><br>
+        CNPM - Médiation de la consommation<br>
+        23 rue Joubert, 75009 Paris<br>
+        www.cnpm-mediation-consommation.eu<br><br>
+        <strong>Tribunal compétent :</strong> À défaut de médiation, le tribunal compétent est celui du lieu de résidence du client (consommateur).` 
+    },
+    { 
+        q: "Article 15 - Modification des CGU", 
+        a: `EASYLOC se réserve le droit de modifier les présentes CGU à tout moment. Les nouvelles CGU seront communiquées par email et mises en ligne sur le site.<br><br>
+        Les CGU applicables sont celles en vigueur à la date de réservation. Toute modification n'affectera pas les contrats en cours, sauf accord express du client.` 
+    },
+    { 
+        q: "Article 16 - Acceptation des CGU", 
+        a: `En réservant un appareil EASYLOC, le client reconnaît avoir pris connaissance des présentes Conditions Générales de Vente et les accepter sans réserve.<br><br>
+        Dernière mise à jour le 09/02/2026<br><br>
+        Pour toute question relative aux présentes CGU :<br>
+        Email : easy.loc.aide@gmail.com` 
+    }
+];
+    
+    // ===== MENTIONS LÉGALES DATA =====
+const mentionsData = [
+    { 
+        q: "1. Éditeur du site", 
+        a: `<strong>Raison sociale :</strong> EASYLOC<br><br>
+        
+        <strong>Forme juridique :</strong> Projet entrepreneurial en cours de création<br>
+        Statut prévu : Micro-entreprise (Auto-entrepreneur)<br><br>
+        
+        <strong>Siège social :</strong><br>
+        EASYLOC<br>
+        Adresse à déterminer<br>
+        <br>
+        France<br><br>
+        
+        <strong>Numéro SIRET :</strong> En cours d'attribution<br>
+        <strong>Numéro TVA intracommunautaire :</strong> Non applicable (franchise en base TVA)<br><br>
+        
+        <strong>Directeur de la publication :</strong> André Mouillé<br>
+        <strong>Responsable de la rédaction :</strong> André Mouillé<br><br>
+        
+        <strong>Contact :</strong><br>
+        Email : easy.loc.aide@gmail.com<br>
+        Téléphone : En cours d'attribution` 
+    },
+    { 
+        q: "2. Hébergement du site", 
+        a: `Le site EASYLOC est hébergé par :<br><br>
+        
+        GitHub, Inc.<br>
+        88 Colin P Kelly Jr Street<br>
+        San Francisco, CA 94107<br>
+        États-Unis<br>
+        Site web : https://github.com<br><br>` 
+    },
+    { 
+        q: "3. Propriété intellectuelle", 
+        a: `<strong>Droits d'auteur :</strong><br><br>
+        
+        L'ensemble du contenu présent sur le site EASYLOC (textes, images, logo, graphismes, design, structure, base de données, etc.) est la propriété exclusive d'EASYLOC, sauf mention contraire.<br><br>
+        
+        <strong>Protection légale :</strong><br>
+        Ce contenu est protégé par les lois françaises et internationales relatives à la propriété intellectuelle.<br><br>
+        
+        <strong>Reproduction interdite :</strong><br>
+        Toute reproduction, représentation, modification, publication, adaptation totale ou partielle des éléments du site, quel que soit le moyen ou le procédé utilisé, est interdite sans l'autorisation écrite préalable d'EASYLOC.<br><br>
+        
+        <strong>Exceptions :</strong><br>
+        • Reproduction pour usage personnel et privé uniquement<br>
+        • Citation avec mention de la source "EASYLOC"<br><br>
+        
+        <strong>Sanctions :</strong><br>
+        Toute exploitation non autorisée du site ou de l'un de ses éléments sera considérée comme constitutive d'une contrefaçon et poursuivie conformément aux dispositions des articles L.335-2 et suivants du Code de Propriété Intellectuelle.<br><br>
+        
+        <strong>Marque :</strong><br>
+        Le nom "EASYLOC" et le logo associé sont des marques déposées ou en cours de dépôt. Toute utilisation non autorisée de ces marques est interdite.` 
+    },
+    { 
+        q: "4. Crédits et ressources tierces", 
+        a: `<strong>Conception et développement :</strong><br>
+        André Mouillé - Étudiant à Centrale Méditerranée<br>
+        Projet Entrep' 2025-2026<br><br>
+        
+        <strong>Équipe EASYLOC :</strong><br>
+        • André Mouillé - Fondateur & Développement<br>
+        • Nassima Mouaouia<br>
+        • Yahya<br>
+        • Mohamed Afdaliat<br><br>
+        
+        <strong>Ressources utilisées :</strong><br><br>
+        
+        <strong>Police de caractères :</strong><br>
+        Inter - Google Fonts (licence Open Font License)<br>
+        https://fonts.google.com/specimen/Inter<br><br>
+        
+        <strong>Icônes et émojis :</strong><br>
+        Émojis natifs Unicode (domaine public)<br><br>
+        
+        <strong>Photographies :</strong><br>
+        à ajouter<br>
+        
+        <strong>Technologies utilisées :</strong><br>
+        • HTML5 / CSS3 / JavaScript<br>
+        • EmailJS pour le formulaire de contact<br>` 
+    },
+    { 
+        q: "5. Liens hypertextes", 
+        a: `<strong>Liens sortants :</strong><br><br>
+        
+        Le site EASYLOC peut contenir des liens hypertextes vers d'autres sites internet. EASYLOC ne saurait être tenu responsable du contenu, des produits, des services, de la publicité ou de tout autre élément disponible sur ou à partir de ces sites tiers.<br><br>
+        
+        Les liens vers d'autres sites sont fournis uniquement pour la commodité de l'utilisateur. La visite de ces sites se fait sous l'entière responsabilité de l'utilisateur.<br><br>
+        
+        <strong>Liens entrants :</strong><br><br>
+        La création de liens hypertextes vers le site EASYLOC est autorisée sous réserve de respecter les conditions suivantes :<br>
+        • Le lien doit pointer vers la page d'accueil du site<br>
+        • Le lien ne doit pas être intégré dans un cadre (frame)<br>
+        • Le lien ne doit pas donner une image dégradante ou fausse d'EASYLOC<br>
+        • Le site source ne doit pas contenir de contenu illicite, choquant ou contraire aux bonnes mœurs<br><br>
+        
+        EASYLOC se réserve le droit de demander la suppression d'un lien si celui-ci ne respecte pas ces conditions.` 
+    },
+    { 
+        q: "6. Cookies et données personnelles", 
+        a: `<strong>Protection des données personnelles :</strong><br><br>
+        
+        Le site EASYLOC collecte et traite des données personnelles dans le respect du Règlement Général sur la Protection des Données (RGPD) et de la loi Informatique et Libertés.<br><br>
+        
+        Pour plus d'informations sur la collecte, le traitement, la conservation et vos droits concernant vos données personnelles, veuillez consulter notre <a onclick="showPage('privacy')" style="color:var(--orange);text-decoration:underline;cursor:pointer;"><strong>Politique de confidentialité</strong></a>.<br><br>
+        
+        <strong>Utilisation des cookies :</strong><br><br>
+        
+        Le site utilise des cookies pour améliorer l'expérience utilisateur et analyser le trafic.<br><br>
+        
+        <strong>Types de cookies utilisés :</strong><br>
+        • <strong>Cookies essentiels :</strong> Nécessaires au fonctionnement du site (session, panier, sécurité)<br>
+        • <strong>Cookies analytiques :</strong> Mesure d'audience (avec votre consentement)<br><br>
+        
+        Vous pouvez gérer vos préférences concernant les cookies via la bannière qui s'affiche lors de votre première visite ou dans les paramètres de votre navigateur.<br><br>
+        
+        <strong>Désactiver les cookies :</strong><br>
+        Vous pouvez configurer votre navigateur pour refuser les cookies, mais cela peut limiter certaines fonctionnalités du site.` 
+    },
+    { 
+        q: "7. Responsabilités et garanties", 
+        a: `<strong>Limitation de responsabilité :</strong><br><br>
+        
+        EASYLOC s'efforce d'assurer l'exactitude et la mise à jour des informations diffusées sur le site EASYLOC. Toutefois, EASYLOC ne peut garantir l'exactitude, la précision ou l'exhaustivité des informations mises à disposition sur ce site.<br><br>
+        
+        <strong>EASYLOC ne saurait être tenu responsable :</strong><br>
+        • Des erreurs ou omissions dans le contenu du site<br>
+        • De l'indisponibilité temporaire ou prolongée du site<br>
+        • Des dommages directs ou indirects résultant de l'utilisation du site<br>
+        • Des virus informatiques pouvant infecter l'équipement de l'utilisateur<br>
+        • De l'utilisation frauduleuse du site par des tiers<br><br>
+        
+        <strong>Disponibilité du site :</strong><br><br>
+        
+        EASYLOC met tout en œuvre pour assurer un accès continu au site. Cependant, EASYLOC se réserve le droit d'interrompre, de suspendre ou de limiter l'accès à tout ou partie du site, notamment pour des raisons de maintenance, de mise à jour ou pour toute autre raison technique.<br><br>
+        
+        Ces interruptions ne sauraient engager la responsabilité d'EASYLOC et n'ouvrent droit à aucune indemnité.` 
+    },
+    { 
+        q: "8. Droit applicable et juridiction", 
+        a: `<strong>Loi applicable :</strong><br><br>
+        
+        Les présentes mentions légales sont régies par le droit français.<br><br>
+        
+        <strong>Langue :</strong><br><br>
+        
+        Les présentes mentions légales sont rédigées en langue française. En cas de traduction dans une ou plusieurs langues étrangères, seul le texte français fera foi en cas de litige.<br><br>
+        
+        <strong>Tribunal compétent :</strong><br><br>
+        
+        En cas de litige relatif à l'interprétation ou à l'exécution des présentes mentions légales, et à défaut d'accord amiable, les tribunaux français seront seuls compétents.<br><br>
+        
+        Pour les consommateurs (particuliers), le tribunal compétent sera celui du lieu de résidence du consommateur ou du lieu de livraison du bien ou du service.<br><br>
+        
+        <strong>Médiation de la consommation :</strong><br><br>
+        
+        Conformément à l'article L.612-1 du Code de la consommation, EASYLOC propose à ses clients consommateurs, dans le cadre de litiges qui n'auraient pas trouvé résolution de manière amiable, la médiation d'un médiateur de la consommation :<br><br>
+        
+        <strong>CNPM - Médiation de la consommation</strong><br>
+        23 rue Joubert<br>
+        75009 Paris<br>
+        Site web : www.cnpm-mediation-consommation.eu` 
+    },
+    { 
+        q: "9. Modification des mentions légales", 
+        a: `EASYLOC se réserve le droit de modifier à tout moment les présentes mentions légales afin de les adapter aux évolutions du site, aux évolutions légales ou réglementaires.<br><br>
+        
+        Les mentions légales applicables sont celles en vigueur à la date de votre visite sur le site.<br><br>
+        
+        Il est donc conseillé de consulter régulièrement cette page pour prendre connaissance des éventuelles modifications.<br><br>
+        
+        <strong>Date de dernière mise à jour :</strong> 09/02/2026` 
+    },
+    { 
+        q: "10. Contact et réclamations", 
+        a: `Pour toute question, réclamation ou demande d'information concernant le site EASYLOC ou les présentes mentions légales, vous pouvez nous contacter :<br><br>
+        
+        <strong>📧 Par email :</strong><br>
+        easy.loc.aide@gmail.com<br><br>
+        
+        <strong>📮 Par courrier :</strong><br>
+        EASYLOC<br>
+        Adresse à déterminer<br>
+        <br>
+        France<br><br>
+        
+        <strong>Délai de réponse :</strong><br>
+        Nous nous engageons à répondre à toute demande dans un délai maximum de 7 jours ouvrés.<br><br>
+        
+        <strong>Protection des données :</strong><br>
+        Pour toute question relative à la protection de vos données personnelles ou pour exercer vos droits RGPD, veuillez consulter notre <a onclick="showPage('privacy')" style="color:var(--orange);text-decoration:underline;cursor:pointer;"><strong>Politique de confidentialité</strong></a> ou nous contacter à l'adresse ci-dessus.` 
+    }
+];
+
+    const privacyData = [
+    {
+        q: "1. Responsable du traitement des données",
+        a: `<strong>Identité du responsable :</strong><br>
+        EASYLOC<br>
+        Adresse à déterminer<br>
+        Email : easy.loc.aide@gmail.com<br><br>
+        
+        <strong>Délégué à la protection des données :</strong><br>
+        André Mouillé<br>
+        Email : easy.loc.aide@gmail.com`
+    },
+    {
+        q: "2. Données personnelles collectées",
+        a: `Nous collectons uniquement les données nécessaires à la gestion de votre location :<br><br>
+        
+        <strong>Données d'identité :</strong><br>
+        • Nom et prénom<br>
+        • Email<br>
+        • Numéro de téléphone<br><br>
+        
+        <strong>Données de localisation :</strong><br>
+        • Adresse de livraison complète<br>
+        • Ville et code postal<br><br>
+        
+        <strong>Données de paiement :</strong><br>
+        • Coordonnées bancaires (stockées de manière sécurisée par notre prestataire de paiement)<br>
+        • Historique des transactions<br><br>
+        
+        <strong>Données de connexion :</strong><br>
+        • Adresse IP<br>
+        • Type de navigateur<br>
+        • Pages visitées sur notre site`
+    },
+    {
+        q: "3. Finalités du traitement",
+        a: `Vos données sont utilisées exclusivement pour :<br><br>
+        
+        <strong>Gestion de votre compte et de vos réservations :</strong><br>
+        • Traitement de votre commande<br>
+        • Livraison et installation de l'appareil<br>
+        • Gestion des paiements mensuels<br>
+        • Gestion de la caution<br><br>
+        
+        <strong>Service client :</strong><br>
+        • Réponse à vos questions<br>
+        • Gestion des pannes et du SAV<br>
+        • Traitement des réclamations<br><br>
+        
+        <strong>Obligations légales :</strong><br>
+        • Facturation et comptabilité<br>
+        • Gestion des litiges<br><br>
+        
+        <strong>Amélioration de nos services :</strong><br>
+        • Statistiques d'utilisation anonymisées<br>
+        • Amélioration de l'expérience utilisateur<br><br>
+        
+        <strong>Communication (uniquement avec votre consentement) :</strong><br>
+        • Informations sur nos nouveaux produits<br>
+        • Offres promotionnelles<br>
+        • Programme de parrainage`
+    },
+    {
+        q: "4. Base légale du traitement",
+        a: `Le traitement de vos données repose sur :<br><br>
+        
+        <strong>L'exécution du contrat de location :</strong><br>
+        Vos données sont nécessaires pour vous fournir le service que vous avez demandé (location d'électroménager).<br><br>
+        
+        <strong>Nos obligations légales :</strong><br>
+        Conservation des factures, déclarations fiscales, etc.<br><br>
+        
+        <strong>Votre consentement explicite :</strong><br>
+        Pour l'envoi de communications marketing (vous pouvez retirer ce consentement à tout moment).<br><br>
+        
+        <strong>Notre intérêt légitime :</strong><br>
+        Amélioration de nos services et prévention de la fraude.`
+    },
+    {
+        q: "5. Destinataires de vos données",
+        a: `Vos données personnelles sont strictement confidentielles et ne sont partagées qu'avec :<br><br>
+        
+        <strong>L'équipe EASYLOC :</strong><br>
+        Uniquement les membres de l'équipe ayant besoin d'accéder à vos données pour traiter votre réservation.<br><br>
+        
+        <strong>Prestataires techniques nécessaires :</strong><br>
+        • Prestataire de paiement sécurisé (Stripe / PayPal)<br>
+        • Service d'hébergement web (données hébergées en France ou Union Européenne)<br>
+        • Outil de gestion client (CRM)<br><br>
+        
+        <strong>Autorités légales (uniquement si requis par la loi) :</strong><br>
+        En cas de réquisition judiciaire ou obligation légale.<br><br>
+        
+        <strong>❌ Jamais vendues ni louées à des tiers :</strong><br>
+        Nous ne vendons, ne louons et ne partageons jamais vos données à des fins commerciales avec des entreprises tierces.`
+    },
+    {
+        q: "6. Durée de conservation",
+        a: `<strong>Pendant la durée de votre location :</strong><br>
+        Conservation de toutes vos données pour la gestion du service.<br><br>
+        
+        <strong>Après la fin de votre location :</strong><br>
+        • <strong>Données de facturation :</strong> 10 ans (obligation légale comptable)<br>
+        • <strong>Données client :</strong> 3 ans après la fin du contrat (durée légale de prescription)<br>
+        • <strong>Données de connexion (logs) :</strong> 12 mois maximum<br><br>
+        
+        <strong>Suppression automatique :</strong><br>
+        Au-delà de ces durées, vos données sont automatiquement supprimées de nos serveurs, sauf si vous exercez votre droit à l'effacement avant.`
+    },
+    {
+        q: "7. Vos droits RGPD",
+        a: `Conformément au Règlement Général sur la Protection des Données (RGPD), vous disposez des droits suivants :<br><br>
+        
+        <strong>✅ Droit d'accès :</strong><br>
+        Vous pouvez demander une copie de toutes les données personnelles que nous détenons sur vous.<br><br>
+        
+        <strong>✏️ Droit de rectification :</strong><br>
+        Vous pouvez corriger vos données si elles sont inexactes ou incomplètes.<br><br>
+        
+        <strong>🗑️ Droit à l'effacement ("droit à l'oubli") :</strong><br>
+        Vous pouvez demander la suppression de vos données, sauf si nous avons une obligation légale de les conserver (factures, etc.).<br><br>
+        
+        <strong>⛔ Droit d'opposition :</strong><br>
+        Vous pouvez vous opposer à tout moment au traitement de vos données à des fins de prospection commerciale.<br><br>
+        
+        <strong>📦 Droit à la portabilité :</strong><br>
+        Vous pouvez récupérer vos données dans un format structuré et lisible pour les transférer à un autre service.<br><br>
+        
+        <strong>⏸️ Droit à la limitation du traitement :</strong><br>
+        Vous pouvez demander de limiter temporairement l'utilisation de vos données.<br><br>
+        
+        <strong>📜 Droit de définir des directives post-mortem :</strong><br>
+        Vous pouvez définir ce qu'il advient de vos données après votre décès.<br><br>
+        
+        <strong>Comment exercer vos droits ?</strong><br>
+        Envoyez un email à : <strong>easy.loc.aide@gmail.com</strong><br>
+        Objet : "Demande RGPD - [votre demande]"<br>
+        Nous vous répondrons sous 1 mois maximum.`
+    },
+    {
+        q: "8. Sécurité de vos données",
+        a: `Nous mettons en œuvre toutes les mesures techniques et organisationnelles pour protéger vos données :<br><br>
+        
+        <strong>🔒 Chiffrement :</strong><br>
+        • Transmission des données via protocole HTTPS (SSL/TLS)<br>
+        • Stockage des mots de passe chiffrés (hachage sécurisé)<br><br>
+        
+        <strong>🛡️ Serveurs sécurisés :</strong><br>
+        • Hébergement en France ou Union Européenne<br>
+        • Sauvegardes régulières et chiffrées<br>
+        • Accès restreint aux données (authentification multi-facteurs)<br><br>
+        
+        <strong>💳 Paiements sécurisés :</strong><br>
+        • Utilisation de prestataires certifiés PCI-DSS (Stripe / PayPal)<br>
+        • Nous ne stockons jamais vos coordonnées bancaires complètes<br><br>
+        
+        <strong>👥 Formation de l'équipe :</strong><br>
+        Tous les membres de l'équipe EASYLOC sont sensibilisés à la protection des données et à la confidentialité.`
+    },
+    {
+        q: "9. Cookies et traceurs",
+        a: `<strong>Nous utilisons des cookies pour :</strong><br><br>
+        
+        <strong>Cookies essentiels (obligatoires) :</strong><br>
+        • Maintenir votre session de connexion<br>
+        • Mémoriser votre panier de réservation<br>
+        • Assurer la sécurité du site<br><br>
+        
+        <strong>Cookies analytiques (avec votre consentement) :</strong><br>
+        • Mesurer l'audience du site<br>
+        • Comprendre comment vous utilisez notre site<br>
+        • Améliorer l'expérience utilisateur<br><br>
+        
+        <strong>Gestion des cookies :</strong><br>
+        Vous pouvez accepter ou refuser les cookies non essentiels via la bannière qui s'affiche lors de votre première visite. Vous pouvez également paramétrer votre navigateur pour bloquer les cookies.<br><br>
+        
+        <strong>Durée de conservation :</strong><br>
+        • Cookies de session : supprimés à la fermeture du navigateur<br>
+        • Cookies analytiques : 13 mois maximum`
+    },
+    {
+        q: "10. Transfert de données hors UE",
+        a: `<strong>Principe :</strong> Vos données sont hébergées et traitées exclusivement au sein de l'Union Européenne.<br><br>
+        
+        <strong>Exception :</strong> Certains prestataires techniques (ex : services cloud) peuvent avoir des serveurs hors UE. Dans ce cas, nous nous assurons qu'ils respectent les clauses contractuelles types de la Commission Européenne ou sont certifiés Privacy Shield (ou équivalent).<br><br>
+        
+        <strong>Engagement :</strong> Aucun transfert de données vers des pays n'offrant pas un niveau de protection adéquat sans garanties appropriées.`
+    },
+    {
+        q: "11. Mineurs",
+        a: `<strong>Âge minimum :</strong> Nos services s'adressent principalement aux étudiants majeurs (18 ans et plus).<br><br>
+        
+        <strong>Mineurs de 16-18 ans :</strong> Peuvent utiliser le service avec l'autorisation d'un parent ou tuteur légal.<br><br>
+        
+        <strong>Mineurs de moins de 16 ans :</strong> Ne peuvent pas créer de compte sans le consentement explicite d'un parent ou tuteur.<br><br>
+        
+        Si nous découvrons que nous avons collecté des données d'un mineur sans consentement parental, nous supprimerons ces données immédiatement.`
+    },
+    {
+        q: "12. Modifications de la politique de confidentialité",
+        a: `Nous nous réservons le droit de modifier cette politique de confidentialité à tout moment pour refléter :<br>
+        • Les évolutions de notre service<br>
+        • Les changements législatifs<br>
+        • Les meilleures pratiques en matière de protection des données<br><br>
+        
+        <strong>Notification :</strong> Toute modification substantielle vous sera notifiée par email et/ou via une notification sur le site.<br><br>`
+    },
+    {
+        q: "13. Réclamation auprès de la CNIL",
+        a: `Si vous estimez que vos droits ne sont pas respectés, vous pouvez introduire une réclamation auprès de l'autorité de contrôle française :<br><br>
+        
+        <strong>CNIL (Commission Nationale de l'Informatique et des Libertés)</strong><br>
+        3 Place de Fontenoy<br>
+        TSA 80715<br>
+        75334 PARIS CEDEX 07<br><br>
+        
+        Téléphone : 01 53 73 22 22<br>
+        Site web : www.cnil.fr<br>
+        Plainte en ligne : https://www.cnil.fr/fr/plaintes<br><br>
+        
+        <strong>Important :</strong> Nous vous encourageons à nous contacter d'abord pour résoudre tout problème de manière amiable.`
+    },
+    {
+        q: "14. Contact - Délégué à la protection des données",
+        a: `Pour toute question relative à la protection de vos données personnelles ou pour exercer vos droits RGPD :<br><br>
+        
+        <strong>📧 Email :</strong> easy.loc.aide@gmail.com<br>
+        <strong>📮 Courrier :</strong><br>
+        EASYLOC - Protection des données<br>
+        Adresse à déterminer<br>
+        <br><br>
+        
+        <strong>Délai de réponse :</strong> Nous nous engageons à répondre à toute demande dans un délai maximum de 1 mois (conformément au RGPD).`
+    }
+];
+
+
+
+    // ===== RENDER PRODUCTS =====
+
+    // ===== GESTION DES COOKIES ===== 
+    // AJOUTE CES FONCTIONS AU DÉBUT DE TON <script>, juste après les déclarations de données
+    
+    function showCookieBanner() {
+        const consent = localStorage.getItem('cookie-consent');
+        if (!consent) {
+            document.getElementById('cookie-banner').style.display = 'block';
+        }
+    }
+
+    function acceptCookies() {
+        localStorage.setItem('cookie-consent', 'accepted');
+        document.getElementById('cookie-banner').style.display = 'none';
+        // Ici tu peux activer Google Analytics ou autres trackers
+    }
+
+    function refuseCookies() {
+        localStorage.setItem('cookie-consent', 'refused');
+        document.getElementById('cookie-banner').style.display = 'none';
+    }
+
+    // ===== RENDER PRODUCTS =====
+    function renderProducts(containerId, items) {
+        // ... ton code existant ...
+    }
+
+
+
+
+
+    function renderProducts(containerId, items) {
+        const grid = document.getElementById(containerId);
+        if (!grid) return;
+        grid.innerHTML = items.map(p => {
+            const stockLabel = p.stock > 5 ? "Disponible" : p.stock > 0 ? "Stock limité" : "Indisponible";
+            return `
+                <div class="product-card" onclick="selectProduct(${p.id})">
+                    <div class="product-img">
+                        <span class="delivery-badge">📦 48-72h</span>
+                        <span class="stock-badge">${stockLabel}</span>
+                        ${p.emoji}
+                    </div>
+                    <div class="product-body">
+                        <div class="product-name">${p.name}</div>
+                        <div class="product-desc">${p.desc}</div>
+                        <div class="product-price">
+                            <div><span class="amount">9€</span><span class="per">/mois</span></div>
+                            <span class="caution">Caution 30€</span>
+                        </div>
+                        <button class="product-btn">Réserver →</button>
+                    </div>
+                </div>
+            `;
+        }).join('');
+    }
+
+    // ===== RENDER FAQ =====
+    function renderFAQ() {
+        const container = document.getElementById('faq-container');
+        container.innerHTML = faqData.map((f, i) => `
+            <div class="faq-item" onclick="toggleFAQ(this)">
+                <div class="faq-question">
+                    <span>${f.q}</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">${f.a}</div>
+            </div>
+        `).join('');
+    }
+
+    function toggleFAQ(el) {
+        el.classList.toggle('open');
+    }
+
+
+
+
+
+
+    // ===== RENDER MENTIONS LÉGALES =====
+    function renderMentions() {
+        const container = document.getElementById('mentions-container');
+        container.innerHTML = mentionsData.map((m, i) => `
+            <div class="faq-item" onclick="toggleFAQ(this)">
+                <div class="faq-question">
+                    <span>${m.q}</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">${m.a}</div>
+            </div>
+        `).join('');
+    }
+
+
+
+
+
+
+    // ===== RENDER CGU =====
+    function rendercgu() {
+        const container = document.getElementById('cgu-container');
+        container.innerHTML = cguData.map((c, i) => `
+            <div class="faq-item" onclick="toggleFAQ(this)">
+                <div class="faq-question">
+                    <span>${c.q}</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">${c.a}</div>
+            </div>
+        `).join('');
+    }
+
+
+
+    // ===== RENDER PRIVACY POLICY =====
+    function renderPrivacy() {
+        const container = document.getElementById('privacy-container');
+        container.innerHTML = privacyData.map((p, i) => `
+            <div class="faq-item" onclick="toggleFAQ(this)">
+                <div class="faq-question">
+                    <span>${p.q}</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">${p.a}</div>
+            </div>
+        `).join('');
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+    // ===== RENDER PRODUCT SELECTOR =====
+    let selectedProductId = 2;
+    function renderProductSelector() {
+        const container = document.getElementById('product-selector');
+        container.innerHTML = products.map(p => `
+            <div onclick="selectProductDirect(${p.id})" style="padding:14px 8px;border-radius:12px;cursor:pointer;text-align:center;background:${p.id === selectedProductId ? 'rgba(232,83,14,0.08)' : 'var(--gray-50)'};border:2px solid ${p.id === selectedProductId ? 'var(--orange)' : 'transparent'};transition:all 0.2s;">
+                <div style="font-size:28px;">${p.emoji}</div>
+                <div style="font-size:11px;font-weight:700;color:var(--navy);margin-top:6px;">${p.name}</div>
+            </div>
+        `).join('');
+    }
+
+    function selectProductDirect(id) {
+        selectedProductId = id;
+        renderProductSelector();
+        updateReservation();
+    }
+
+    function selectProduct(id) {
+        selectedProductId = id;
+        showPage('reservation');
+    }
+
+    function updateReservation() {
+        const months = parseInt(document.getElementById('res-months').value);
+        const insurance = document.getElementById('res-insurance').checked;
+        const p = products.find(x => x.id === selectedProductId);
+
+        document.getElementById('res-months-label').textContent = months + ' mois';
+        document.getElementById('res-product-display').textContent = p.emoji;
+        document.getElementById('res-product-name').textContent = p.name;
+
+        const rental = months * 9;
+        const ins = insurance ? months * 2 : 0;
+        const total = rental + 30 + ins;
+
+        document.getElementById('res-summary').innerHTML = `
+            <div style="display:flex;justify-content:space-between;margin-bottom:8px;font-size:14px;"><span style="opacity:0.7;">Location (${months} × 9€)</span><span>${rental}€</span></div>
+            <div style="display:flex;justify-content:space-between;margin-bottom:8px;font-size:14px;"><span style="opacity:0.7;">Caution (remboursable)</span><span>30€</span></div>
+            ${insurance ? `<div style="display:flex;justify-content:space-between;margin-bottom:8px;font-size:14px;"><span style="opacity:0.7;">Assurance (${months} × 2€)</span><span>${ins}€</span></div>` : ''}
+            <div style="display:flex;justify-content:space-between;margin-bottom:8px;font-size:14px;"><span style="opacity:0.7;">Livraison & installation</span><span style="color:#10B981;font-weight:700;">Incluse</span></div>
+            <div style="border-top:1px solid rgba(255,255,255,0.15);padding-top:12px;margin-top:8px;display:flex;justify-content:space-between;align-items:center;">
+                <span style="font-size:16px;font-weight:800;">Total</span>
+                <span style="font-size:28px;font-weight:900;color:var(--orange);">${total}€</span>
+            </div>
+        `;
+    }
+
+    function submitReservation() {
+    // Récupère les données du formulaire PAR ID
+    const prenom = document.getElementById('res-prenom').value;
+    const nom = document.getElementById('res-nom').value;
+    const email = document.getElementById('res-email').value;
+    const telephone = document.getElementById('res-telephone').value;
+    const adresse = document.getElementById('res-adresse').value;
+    
+    // Vérifie que tous les champs sont remplis
+    if (!prenom || !nom || !email || !telephone || !adresse) {
+        alert('⚠️ Merci de remplir tous les champs obligatoires');
+        return;
+    }
+    
+    // Récupère les autres infos
+    const produit = products.find(x => x.id === selectedProductId);
+    const duree = document.getElementById('res-months').value;
+    const dateDebut = document.getElementById('res-date').value;
+    const assurance = document.getElementById('res-insurance').checked;
+    
+    // Prépare les données à envoyer
+    const reservationData = {
+        prenom: prenom,
+        nom: nom,
+        email: email,
+        telephone: telephone,
+        adresse: adresse,
+        produit: produit.name,
+        duree: duree,
+        date_debut: dateDebut,
+        assurance: assurance
+    };
+    
+    // Affiche un loader
+    document.getElementById('reservation-form-container').innerHTML = `
+        <div style="text-align:center;padding:60px 20px;">
+            <div style="font-size:48px;margin-bottom:20px;">⏳</div>
+            <h2 style="font-size:24px;font-weight:900;color:var(--navy);">Envoi en cours...</h2>
+            <p style="font-size:14px;color:var(--gray-500);">Ne ferme pas cette page</p>
+        </div>
+    `;
+    
+    // Envoie vers Google Sheets
+    fetch('https://script.google.com/macros/s/AKfycbynLbG9KWwS4qtti65N5Wi0o72jIYRnt9-3b_XxlZdDkJrghFS9waJAR9EltoMXzZ1rmA/exec', {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(reservationData)
+    })
+    .then(() => {
+        // Affiche le message de succès
+        document.getElementById('reservation-form-container').innerHTML = `
+            <div style="text-align:center;padding:60px 20px;">
+                <div style="font-size:64px;margin-bottom:20px;">🎉</div>
+                <h2 style="font-size:32px;font-weight:900;color:var(--navy);margin-bottom:12px;">Pré-inscription confirmée !</h2>
+                <p style="font-size:16px;color:var(--gray-500);line-height:1.6;">
+                    On a bien reçu ta demande pour <strong>${produit.name}</strong>.<br>
+                    On te recontacte très vite par email pour confirmer la livraison.
+                </p>
+                <div style="margin-top:24px;padding:16px;background:var(--cream);border-radius:12px;">
+                    <div style="font-size:13px;color:var(--gray-700);font-weight:600;">
+                        📧 Un email de confirmation a été envoyé à :<br>
+                        <span style="color:var(--orange);">${email}</span>
+                    </div>
+                </div>
+            </div>
+        `;
+    })
+    .catch(error => {
+        console.error('Erreur:', error);
+        document.getElementById('reservation-form-container').innerHTML = `
+            <div style="text-align:center;padding:60px 20px;">
+                <div style="font-size:64px;margin-bottom:20px;">🎉</div>
+                <h2 style="font-size:32px;font-weight:900;color:var(--navy);margin-bottom:12px;">Pré-inscription confirmée !</h2>
+                <p style="font-size:16px;color:var(--gray-500);line-height:1.6;">
+                    On a bien reçu ta demande pour <strong>${produit.name}</strong>.<br>
+                    On te recontacte très vite par email.
+                </p>
+            </div>
+        `;
+    });
+}
+
+    // ===== PAGE NAVIGATION =====
+    function showPage(pageId) {
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        document.getElementById('page-' + pageId).classList.add('active');
+        document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+        window.scrollTo(0, 0);
+        document.getElementById('mobileNav').style.display = 'none';
+
+        // Re-render stuff if needed
+        if (pageId === 'reservation') {
+            renderProductSelector();
+            updateReservation();
+        }
+    }
+
+    function toggleMobileNav() {
+        const nav = document.getElementById('mobileNav');
+        nav.style.display = nav.style.display === 'none' ? 'flex' : 'none';
+    }
+    // ===== CONTACT FORM =====
+    function sendContactEmail(event) {
+        event.preventDefault(); // Empêche le rechargement de la page
+        
+        const submitBtn = document.getElementById('contact-submit-btn');
+        const originalText = submitBtn.innerHTML;
+        
+        // Affiche un état de chargement
+        submitBtn.innerHTML = '⏳ Envoi en cours...';
+        submitBtn.disabled = true;
+        
+        // Récupère les données du formulaire
+        const formData = {
+            from_name: document.querySelector('input[name="from_name"]').value,
+            from_email: document.querySelector('input[name="from_email"]').value,
+            message: document.querySelector('textarea[name="message"]').value
+        };
+        
+        // Envoie l'email via EmailJS
+        emailjs.send(
+            'easyloc-gmail',      // ← Remplace par ton Service ID de l'étape 1
+            'template_c4yk9c3',     // ← Remplace par ton Template ID de l'étape 2
+            formData
+        )
+        .then(function(response) {
+            console.log('✅ Email envoyé avec succès!', response.status, response.text);
+            
+
+
+            const audio = new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSuBzvLZiTYIG2m98OScTgwOUKzn77RgGwU7k9n0yXkpBSh+zPLaizsKGGS56+mmUhQJR6Hn8bllHAQqfsz021I3CBtpvO/mnEwNDlCr6O+zYBoEO5PY9Ml5KgUofszy2os7ChhluevsplIUCUeh5/C5ZRwEKn/M9NtSNwgbab3v5pxMDQ5Qq+jvs2AaBDuT2PTJeSoFKH3M8tqLOwoYZbnr7KZSFQlIoOfwuWUcBCp/zPTbUjcIG2m97+acTA0OUKzo77NgGgQ7k9j0yXkqBSh9zPLaizsKGGW56+ymUhUJSKDn8LllHAQqf8z021I3CBtpve/mnEwNDlCr6O+zYBoEO5PY9Ml5KgUofczy2os7ChhluevsplIVCUig5/C5ZRwEKn/M9NtSNwgbab3v5pxMDQ5Qq+jvs2AaBDuT2PTJeSoFKH3M8tqLOwoYZbnr7KZSFQlIoOfwuWUcBCp/zPTbUjcIG2m97+acTA0OUKzo77NgGgQ7k9j0yXkqBSh9zPLaizsKGGW56+ymUhUJSKDn8LllHAQqf8z021I3CBtpve/mnEwNDlCr6O+zYBoEO5PY9Ml5KgUofczy2os7ChhluevsplIVCUig5/C5ZRwEKn/M9NtSNwgbab3v5pxMDQ5Qq+jvs2AaBDuT2PTJeSoFKH3M8tqLOwoYZbnr7KZSFQlIoOfwuWUcBCp/zPTbUjcIG2m97+acTA0OUKzo77NgGgQ7k9j0yXkqBSh9zPLaizsKGGW56+ymUhUJSKDn8LllHAQqf8z021I3CBtpve/mnEwNDlCr6O+zYBoEO5PY9Ml5KgUofczy2os7ChhluevsplIVCUig5/C5ZRwEKn/M9NtSNwgbab3v5pxMDQ5Qq+jvs2AaBDuT2PTJeSoFKH3M8tqLOwoYZbnr7KZSFQlIoOfwuWUcBCp/zPTbUjcIG2m97+acTA0OUKzo77NgGgQ=');
+        audio.play().catch(e => console.log('Son non joué (navigateur bloque autoplay)'));
+            // Affiche le message de confirmation
+            document.getElementById('contact-form-container').innerHTML = `
+                <div style='text-align:center;padding:30px;'>
+                    <div style='font-size:48px;margin-bottom:12px;'>✅</div>
+                    <p style='font-size:16px;font-weight:700;color:var(--navy);'>Message envoyé !</p>
+                    <p style='font-size:14px;color:var(--gray-500);'>On te répond très vite.</p>
+                </div>
+            `;
+        })
+        .catch(function(error) {
+            console.error('❌ Erreur lors de l\'envoi:', error);
+            
+            // Réactive le bouton
+            submitBtn.innerHTML = originalText;
+            submitBtn.disabled = false;
+            
+            // Affiche un message d'erreur
+            alert('❌ Erreur lors de l\'envoi. Vérifie ta connexion et réessaie.');
+        });
+    }
+
+    // ===== INIT =====
+    renderProducts('product-grid-home', products.slice(0, 4));
+    renderProducts('product-grid-full', products);
+    renderFAQ();
+    rendercgu();
+    renderMentions();
+    renderPrivacy();
+    renderProductSelector();
+    updateReservation();
+
+    // Afficher la bannière cookies après 1 seconde
+    setTimeout(showCookieBanner, 1000);
+</script>
+
+</body>
+</html>
